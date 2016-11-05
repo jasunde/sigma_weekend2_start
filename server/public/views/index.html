@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Weekend Challenge 2</title>
+<head>
+  <title>Weekend Challenge 2</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="vendor/bootstrap.min.css" />
-    <link rel="stylesheet" href="/styles/style.css" />
+  <link rel="stylesheet" href="vendor/bootstrap.min.css" />
+  <link rel="stylesheet" href="vendor/devicons.min.css" />
+  <link rel="stylesheet" href="/styles/style.css" />
 
-    <script type="text/javascript" src="/vendor/jquery.min.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
+  <script type="text/javascript" src="/vendor/jquery.min.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
 
-  </head>
-  <body>
-    <div class="container">
-      <h1>Weekend Challenge 2</h1>
-      <div id="peopleContainer"></div>
+</head>
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1 class="text-center">Sigmanauts!</h1>
     </div>
-  </body>
+    <div class="row">
+      <div class="col-md-4">
+        <div id="peopleButtons" class=""></div>
+      </div>
+      <div class="col-md-8">
+        <p>
+          <button id="previous" class="btn btn-default">Previous</button>
+          <button id="next" class="btn btn-default">Next</button>
+        </p>
+        <div id="peopleContainer"></div>
+      </div>
+    </div>
+  </div>
+</body>
 </html>

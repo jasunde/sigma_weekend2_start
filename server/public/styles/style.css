@@ -1,0 +1,18 @@
+.person {
+  display: none;
+}
+
+#peopleButtons .btn {
+  float: left;
+  margin: 1%;
+  width: 48%;
+}
+
+.github {
+  font-size: 1.4em;
+}
+
+.devicons {
+  font-size: 1.2em;
+  vertical-align: text-bottom;
+}
