@@ -3,7 +3,7 @@ var sigmanauts = [],
     $peopleButtons,
     intervalID;
 
-var INTERVAL_TIME = 4000; // 10 seconds
+var INTERVAL_TIME = 10000; // 10 seconds
 var BTN_ACTIVE_CLASS = 'active btn-primary';
 var PERSON_ACTIVE_CLASS = 'active';
 
@@ -79,7 +79,7 @@ function changeHighlight(person) {
   $activePerson.fadeOut({
     complete: function () {
       $peopleButtons.find('.active').removeClass(BTN_ACTIVE_CLASS);
-      person.button.addClass(BTN_ACTIVE_CLASS);
+      person.button.addClass(BTN_ACTIVE_CLASS).blur();
       person.container.fadeIn();
       person.container.addClass(PERSON_ACTIVE_CLASS);
     }
@@ -102,6 +102,7 @@ function nextPerson() {
   var i = $peopleContainer.find('.active').data('index');
   i = (i + 1) % (sigmanauts.length);
   changeHighlight(sigmanauts[i]);
+  $(this).blur();
 }
 
 // Change highlighting to the previous person
@@ -110,6 +111,7 @@ function previousPerson() {
   i = i || sigmanauts.length;
   i--;
   changeHighlight(sigmanauts[i]);
+  $(this).blur();
 }
 
 function startInterval() {
