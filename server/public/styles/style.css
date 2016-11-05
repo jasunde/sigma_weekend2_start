@@ -16,3 +16,14 @@
   font-size: 1.2em;
   vertical-align: text-bottom;
 }
+
+#next {
+  float: right;
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  #next {
+    float: none;
+  }
+}
