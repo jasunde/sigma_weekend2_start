@@ -1,7 +1,8 @@
 var sigmanauts = [],
     $peopleContainer,
     $peopleButtons,
-    intervalID;
+    intervalID,
+    animating = false;
 
 var INTERVAL_TIME = 10000; // 10 seconds
 var BTN_ACTIVE_CLASS = 'active btn-primary';
@@ -28,18 +29,16 @@ function init() {
   peopleToDom();
 
   // Give first person and button the active class
-  sigmanauts[0].container.addClass(PERSON_ACTIVE_CLASS);
-  sigmanauts[0].button.addClass(BTN_ACTIVE_CLASS);
-
-  sigmanauts[0].container.fadeIn();
+  changeHighlight(sigmanauts[0]);
 
   // Handle click on person-button
-  $peopleButtons.on('click', '.person-button', goToPerson);
+  // $peopleButtons.on('click', '.person-button', goToPerson);
+  $peopleButtons.on('click', '.person-button', handleClick);
 
   // Handle click on next button
-  $('#next').on('click', nextPerson);
+  $('#next').on('click', handleClick);
   // Handle click on previous button
-  $('#previous').on('click', previousPerson);
+  $('#previous').on('click', handleClick);
 
   startInterval();
 }
@@ -69,31 +68,54 @@ function peopleToDom() {
 
 // Change highlighting of person and their button
 function changeHighlight(person) {
-  // Stop automatically changing to next person
-  clearInterval(intervalID);
+  animating = true;
 
   // Find active person
   var $activePerson = $peopleContainer.find('.active').removeClass(PERSON_ACTIVE_CLASS);
 
   // Animate transition to new person
-  $activePerson.fadeOut({
-    complete: function () {
-      $peopleButtons.find('.active').removeClass(BTN_ACTIVE_CLASS);
-      person.button.addClass(BTN_ACTIVE_CLASS).blur();
-      person.container.fadeIn();
-      person.container.addClass(PERSON_ACTIVE_CLASS);
+  if($activePerson.length > 0) {
+    $activePerson.fadeOut({
+      complete: function () {
+        $peopleButtons.find('.active').removeClass(BTN_ACTIVE_CLASS);
+        person.button.addClass(BTN_ACTIVE_CLASS).blur();
+        person.container.fadeIn();
+        person.container.addClass(PERSON_ACTIVE_CLASS);
+        animating = false
+      }
+    });
+  } else {
+    person.button.addClass(BTN_ACTIVE_CLASS).blur();
+    person.container.fadeIn();
+    person.container.addClass(PERSON_ACTIVE_CLASS);
+    animating = false
+  }
+
+}
+
+// Handle click
+function handleClick() {
+  // Stop automatically changing to next person
+  clearInterval(intervalID);
+
+  var $this = $(this);
+  if(!animating) {
+    if($this.hasClass('person-button')) {
+      goToPerson.call(this);
+    } else if ($this.attr('id') === 'next') {
+      nextPerson.call(this);
+    } else if ($this.attr('id') === 'previous') {
+      previousPerson.call(this);
     }
-  });
+  }
 
   // Start automatically chaning to next person
   startInterval();
 }
 
 // Go to person whose button was clicked
-function goToPerson(e) {
-  e.preventDefault();
+function goToPerson() {
   var person = $(this).data();
-  console.log(this);
   changeHighlight(person);
 }
 
